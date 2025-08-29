@@ -1,6 +1,8 @@
 import os
 
-from flask import Flask, session, request, redirect, url_for, render_template
+from flask import Flask, session, request, redirect, url_for, render_template, jsonify
+
+import tmdb
 
 # set up authorization with spotipy library
 from spotipy import Spotify
@@ -53,9 +55,26 @@ def callback():
     return redirect(url_for('search'))
 
 
-@app.route('/search')
+@app.route('/search', methods=['POST', 'GET'])
 def search():
-    return render_template('index.html')
+    return render_template("index.html")
+
+
+@app.route('/search-api')
+def search_api():
+    query = request.args.get('q', '')
+    if not query:
+        return jsonify([])
+
+    movies = tmdb.search_movies(query)
+    return jsonify(movies[:10])
+
+
+@app.route('/make-playlist')
+def make_playlist():
+    movie_info = tmdb.movie_info()
+    genres = movie_info[0]
+    keywords = movie_info[1]
 
 # logout
 
@@ -63,7 +82,7 @@ def search():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('\home'))
+    return redirect(url_for('home'))
 
 
 if __name__ == '__main__':

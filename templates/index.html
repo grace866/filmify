@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="search-wrapper">
+      <label for="search">Search Users</label>
+      <input type="search" id="search" data-search />
+    </div>
+    <div class="movie-cards" data-movie-cards-container>
+      <template data-movie-template>
+        <div class="card">
+          <div class="header" data-header></div>
+          <div class="body" data-body></div>
+        </div>
+      </template>
+    </div>
+
+    <div class="modal" playlist-display>
+      <span class="close">&times;</span>
+      <p class="modal-content">text</p>
+    </div>
+  </body>
 </html>

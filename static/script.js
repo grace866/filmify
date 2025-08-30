@@ -3,10 +3,23 @@ const movieCardContainer = document.querySelector("[data-movie-cards-container]"
 const searchInput = document.querySelector("[data-search]")
 
 function openModal(movie){
-    var modal = document.querySelector("[playlist-display]");
-    var span = document.querySelector(".close");
+    const modal = document.querySelector("[playlist-display]");
+    const span = document.querySelector(".close");
+    const ul = document.querySelector(".playlist");
+    const movie_id = encodeURIComponent(movie.id);
 
     modal.style.display = "block";
+    fetch(`http://127.0.0.1:8002/make-playlist?movie_id=${movie_id}`)
+    .then(res => res.json())
+    .then(data => {
+        ul.innerHTML = '';
+        data.forEach(track => {
+            console.log(track)
+            const li = document.createElement("li");
+            li.textContent = `${track.name}`;
+            ul.appendChild(li)
+        })
+    })
 
     span.onclick = function() {
         modal.style.display = "none";
@@ -14,6 +27,7 @@ function openModal(movie){
 }
 
 searchInput.addEventListener("input", e => {
+    movieCardContainer.innerHTML = "";
     const query = e.target.value
     
     if (!query){
@@ -24,7 +38,6 @@ searchInput.addEventListener("input", e => {
     .then(res => res.json())
     .then(data => {
         data.forEach(movie => {
-            console.log(movie)
             const card = movieCardTemplate.content.cloneNode(true).children[0]
             const header = card.querySelector("[data-header]")
             const body = card.querySelector("[data-body]")

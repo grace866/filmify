@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 
 from flask import Flask, session, request, redirect, url_for, render_template, jsonify
 
@@ -13,8 +14,10 @@ app = Flask(__name__)
 # key to encrypt session data to prevent user tampering
 app.config['SECRET_KEY'] = os.urandom(64)
 
+load_dotenv()
+client_secret = os.getenv('CLIENT_SECRET')
+
 client_id = '8996ce409a564c8bad2d182582494df4'
-client_secret = 'fbbb7731825142268c7e022726a0641e'
 redirect_uri = 'http://127.0.0.1:8002/callback'
 scope = 'playlist-read-private, streaming'
 
@@ -67,14 +70,23 @@ def search_api():
         return jsonify([])
 
     movies = tmdb.search_movies(query)
-    return jsonify(movies[:10])
+    return jsonify(movies[:20])
 
 
 @app.route('/make-playlist')
 def make_playlist():
-    movie_info = tmdb.movie_info()
-    genres = movie_info[0]
-    keywords = movie_info[1]
+    movie_id = request.args.get('movie_id')
+    keywords = tmdb.movie_info(movie_id)
+
+    tracks = []
+
+    for word in keywords:
+        recs = sp.search(q=word, type='track', limit=5)
+        for rec in recs['tracks']['items']:
+            tracks.append(
+                {'id': rec['id'], 'name': rec['name'], 'artists': rec['artists']})
+
+    return jsonify(tracks)
 
 # logout
 

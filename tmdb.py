@@ -1,20 +1,23 @@
+import os
 import tmdbsimple as tmdb
+from dotenv import load_dotenv
 
-tmdb.API_KEY = 'b1b74485fb7b95abcebdbc748776c51c'
+load_dotenv()
+tmdb.API_KEY = os.getenv('API_KEY')
+
 tmdb.REQUESTS_TIMEOUT = 5
 
 
-def movie_info(movies):
-    for movie in movies:
-        movie_id = movie['id']
+def movie_info(movie_id):
+    movie = tmdb.Movies(movie_id)
 
-        movie = tmdb.Movies(movie_id)
-        details = movie.info()
+    worddict = movie.keywords()
+    keywords = []
 
-        genres = details.get('genres', [])
-        keywords = details.get('keywords', [])
+    for kw in worddict.get('keywords', []):
+        keywords.append(kw["name"])
 
-        return (genres, keywords)
+    return keywords
 
 
 def search_movies(query):

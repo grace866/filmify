@@ -1,11 +1,40 @@
+body {
+  background-image: repeating-linear-gradient(           
+    #96fab9,            /* Light green */
+    #96fab9 40px,       /* Stripe width */
+    #49e37f 40px,       /* Darker green */
+    #49e37f 80px    
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+}
+
 .search-wrapper{
     display: flex;
     flex-direction: column;
     gap: .25rem;
+    margin-left: 8vw;
 }
 
-input {
+.searchbar-wrapper{
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    border-radius: 28px;
+    background: white;
+}
+
+input{
     font-size: 1rem;
+    font-family: sans-serif;
+    color: #333333;
+    margin-left: 14px;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 80vw;
 }
 
 .movie-cards{
@@ -13,26 +42,28 @@ input {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: .25rem;
     margin-top: 1rem;
+    padding: 0vw 8vw;
 }
 
 .card{
-    border: 1px solid black;
-    background-color: white;
+    border: 3px solid black;
+    background-color: #1DB954;
     padding: .5rem;
     cursor: pointer;
 }
 
 .card > .header{
     margin-bottom: .25rem;
+    font-family: sans-serif;
 }
 
 .card > .body{
     font-size: .8rem;
-    color: #777;
+    font-family: sans-serif;
 }
 
 .hide{
-    display: none
+    display: none;
 }
 
 .modal {
@@ -68,4 +99,9 @@ input {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.search-wrapper > .header{
+    font-size: 4rem;
+    font-family: 'Bangers', sans-serif;
 }

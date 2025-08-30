@@ -30,7 +30,8 @@ This app requires API keys and configuration values to access Spotify and TMDb
 2. TMDb API key
    - Create an account at [The Movie Database](https://www.themoviedb.org/account/signup)
    - Go to your account settings > API section
-   - Request an API key and copy it
+   - Click Create > Developer > Accept
+   - Fill out app details & copy API key
 
 ## Create a `.env` File
 

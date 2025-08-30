@@ -42,6 +42,9 @@ CLIENT_ID=your_spotify_client_id
 CLIENT_SECRET=your_spotify_client_secret
 REDIRECT_URI=http://localhost:8002/callback
 API_KEY=your_tmdb_api_key
+```
+
+Note: loading songs after clicking on a movie might take some time; if there are no movie keywords, no songs will be recommended
 
 
 

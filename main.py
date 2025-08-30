@@ -16,9 +16,8 @@ app.config['SECRET_KEY'] = os.urandom(64)
 
 load_dotenv()
 client_secret = os.getenv('CLIENT_SECRET')
-
-client_id = '8996ce409a564c8bad2d182582494df4'
-redirect_uri = 'http://127.0.0.1:8002/callback'
+client_id = os.getenv('CLIENT_ID')
+redirect_uri = os.getenv('REDIRECT_URI')
 scope = 'playlist-read-private, streaming'
 
 # use authorization code flow (OAuth) - access user resources & access token refresh
